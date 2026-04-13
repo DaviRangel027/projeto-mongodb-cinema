@@ -28,3 +28,23 @@ db.filmes.insertMany([
   { _id: 15, titulo: "Batman", ano: 2022, genero: "Ação", duracao: 176, nacional: false, classificacao: 14 }
 ]);
 
+// Sessões
+db.sessoes.insertMany([
+  { filme_id: 1, sala: "IMAX 01", horario: "14:00", tipo: "3D", vago: true },
+  { filme_id: 2, sala: "Sala 03", horario: "16:30", tipo: "2D", vago: true },
+  { filme_id: 3, sala: "IMAX 01", horario: "20:00", tipo: "3D", vago: false },
+  { filme_id: 10, sala: "Sala 02", horario: "22:00", tipo: "2D", vago: true }
+]);
+
+// CONSULTAS COM OPERADORES DE COMPARAÇÃO 
+
+// $gt: Filmes com duração maior que 150 minutos
+db.filmes.find({ duracao: { $gt: 150 } }).pretty();
+
+// $lt: Filmes lançados antes de 2000
+db.filmes.find({ ano: { $lt: 2000 } }).pretty();
+
+// $gte: Filmes com classificação 16 anos ou mais
+db.filmes.find({ classificacao: { $gte: 16 } }).pretty();
+
+
