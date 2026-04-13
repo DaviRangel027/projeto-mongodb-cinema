@@ -4,6 +4,12 @@
 // GRUPO: [Arthur Rocha Silva - Davi dos Santos - Joao Henrique Reis - Pedro Henrique Gomes - Yahn de Freitas]
 // ==================================================
 
+/* EXECUCAO:
+   1. REQUISITOS: Ter o MongoDB Server e o Mongosh instalados.
+   2. LIGAR O BANCO: mongod --dbpath="CAMINHO_DA_PASTA\data"
+   3. RODAR O SCRIPT: mongosh --quiet Cinema.js
+*/
+
 use('cinema'); 
 
 db.filmes.drop(); 
@@ -47,60 +53,48 @@ db.sessoes.insertMany([
 
 print("--- PARTE 1: OPERADORES DE COMPARACAO ---");
 
-// $gt: Filmes com duracao maior que 150 minutos
 print("1. Filmes > 150min:");
-db.filmes.find({ duracao: { $gt: 150 } }).pretty();
+printjson(db.filmes.find({ duracao: { $gt: 150 } }).toArray());
 
-// $lt: Filmes lancados antes de 2000
 print("2. Filmes antes de 2000:");
-db.filmes.find({ ano: { $lt: 2000 } }).pretty();
+printjson(db.filmes.find({ ano: { $lt: 2000 } }).toArray());
 
-// $gte: Filmes com classificacao 16 anos ou mais
 print("3. Classificacao >= 16:");
-db.filmes.find({ classificacao: { $gte: 16 } }).pretty();
+printjson(db.filmes.find({ classificacao: { $gte: 16 } }).toArray());
 
-// $lte: Filmes com ate 100 minutos de duracao
 print("4. Filmes <= 100min:");
-db.filmes.find({ duracao: { $lte: 100 } }).pretty();
+printjson(db.filmes.find({ duracao: { $lte: 100 } }).toArray());
 
-// $in: Filmes dos generos 'Drama' ou 'Suspense'
 print("5. Generos Drama ou Suspense:");
-db.filmes.find({ genero: { $in: ["Drama", "Suspense"] } }).pretty();
+printjson(db.filmes.find({ genero: { $in: ["Drama", "Suspense"] } }).toArray());
 
-// $ne: Filmes que nao sao nacionais
 print("6. Filmes nao nacionais:");
-db.filmes.find({ nacional: { $ne: true } }).pretty();
+printjson(db.filmes.find({ nacional: { $ne: true } }).toArray());
 
 print("--- PARTE 2: OPERADORES LOGICOS ---");
 
-// $and (implicito): Filmes de Acao com classificacao 14
 print("7. Acao e Classificacao 14:");
-db.filmes.find({ genero: "Acao", classificacao: 14 }).pretty();
+printjson(db.filmes.find({ genero: "Acao", classificacao: 14 }).toArray());
 
-// $and (explicito): Filmes nacionais E lancados apos 2010
 print("8. Nacional e Ano > 2010:");
-db.filmes.find({ $and: [ { nacional: true }, { ano: { $gt: 2010 } } ] }).pretty();
+printjson(db.filmes.find({ $and: [ { nacional: true }, { ano: { $gt: 2010 } } ] }).toArray());
 
-// $or: Filmes de Comedia OU Animacao
 print("9. Comedia ou Animacao:");
-db.filmes.find({ $or: [ { genero: "Comedia" }, { genero: "Animacao" } ] }).pretty();
+printjson(db.filmes.find({ $or: [ { genero: "Comedia" }, { genero: "Animacao" } ] }).toArray());
 
-// $nor: Filmes que nao sao de Acao nem de Drama
 print("10. Nem Acao, nem Drama:");
-db.filmes.find({ $nor: [ { genero: "Acao" }, { genero: "Drama" } ] }).pretty();
+printjson(db.filmes.find({ $nor: [ { genero: "Acao" }, { genero: "Drama" } ] }).toArray());
 
-// $not: Filmes que NAO possuem classificacao menor que 10
 print("11. Classificacao nao menor que 10:");
-db.filmes.find({ classificacao: { $not: { $lt: 10 } } }).pretty();
+printjson(db.filmes.find({ classificacao: { $not: { $lt: 10 } } }).toArray());
 
-// Combinacao ($and + $or): Filmes nacionais E (Comedia OU Drama)
 print("12. Nacional E (Comedia ou Drama):");
-db.filmes.find({ 
+printjson(db.filmes.find({ 
     $and: [ 
         { nacional: true }, 
         { $or: [ { genero: "Comedia" }, { genero: "Drama" } ] } 
     ] 
-}).pretty();
+}).toArray());
 
 print("==============================");
 print("FIM DO TRABALHO");
