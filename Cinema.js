@@ -53,41 +53,53 @@ db.sessoes.insertMany([
 
 print("--- PARTE 1: OPERADORES DE COMPARACAO ---");
 
+// $gt
 print("1. Filmes > 150min:");
 printjson(db.filmes.find({ duracao: { $gt: 150 } }).toArray());
 
+// $lt
 print("2. Filmes antes de 2000:");
 printjson(db.filmes.find({ ano: { $lt: 2000 } }).toArray());
 
+// $gte
 print("3. Classificacao >= 16:");
 printjson(db.filmes.find({ classificacao: { $gte: 16 } }).toArray());
 
+// $lte
 print("4. Filmes <= 100min:");
 printjson(db.filmes.find({ duracao: { $lte: 100 } }).toArray());
 
+// $in
 print("5. Generos Drama ou Suspense:");
 printjson(db.filmes.find({ genero: { $in: ["Drama", "Suspense"] } }).toArray());
 
+// $ne
 print("6. Filmes nao nacionais:");
 printjson(db.filmes.find({ nacional: { $ne: true } }).toArray());
 
 print("--- PARTE 2: OPERADORES LOGICOS ---");
 
+// $and (implicito)
 print("7. Acao e Classificacao 14:");
 printjson(db.filmes.find({ genero: "Acao", classificacao: 14 }).toArray());
 
+// $and (explicito)
 print("8. Nacional e Ano > 2010:");
 printjson(db.filmes.find({ $and: [ { nacional: true }, { ano: { $gt: 2010 } } ] }).toArray());
 
+// $or
 print("9. Comedia ou Animacao:");
 printjson(db.filmes.find({ $or: [ { genero: "Comedia" }, { genero: "Animacao" } ] }).toArray());
 
+// $nor
 print("10. Nem Acao, nem Drama:");
 printjson(db.filmes.find({ $nor: [ { genero: "Acao" }, { genero: "Drama" } ] }).toArray());
 
+// $not
 print("11. Classificacao nao menor que 10:");
 printjson(db.filmes.find({ classificacao: { $not: { $lt: 10 } } }).toArray());
 
+// Combinação ($and + $or)
 print("12. Nacional E (Comedia ou Drama):");
 printjson(db.filmes.find({ 
     $and: [ 
