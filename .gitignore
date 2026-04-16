@@ -1,0 +1,6 @@
+data/
+storage.bson
+mongod.lock
+diagnostic.data/
+journal/
+*.wt
